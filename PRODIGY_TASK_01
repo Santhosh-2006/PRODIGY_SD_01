@@ -1,61 +1,52 @@
-#include <iostream>
-using namespace std;
+def celsius_to_fahrenheit(celsius):
+    return (celsius * 9/5) + 32
 
-int main() {
-    char choice;
-    float temperature, convertedTemp;
+def celsius_to_kelvin(celsius):
+    return celsius + 273.15
 
-    cout << "Welcome!\n";
-    cout << "This program converts the following temperature units:\n";
-    cout << "  c (C) for Celsius\n";
-    cout << "  f (F) for Fahrenheit\n";
-    cout << "  k (K) for Kelvin\n";
-    cout << "Example:\n";
-    cout << "  Enter 'c' for Celsius, then 'f' for Fahrenheit.\n\n";
+def fahrenheit_to_celsius(fahrenheit):
+    return (fahrenheit - 32) * 5/9
 
-    cout << "Enter the temperature unit you want to convert (c/f/k): ";
-    cin >> choice;
+def fahrenheit_to_kelvin(fahrenheit):
+    return (fahrenheit - 32) * 5/9 + 273.15
 
-    cout << "Enter the temperature value: ";
-    cin >> temperature;
+def kelvin_to_celsius(kelvin):
+    return kelvin - 273.15
 
-    switch (choice) {
-        case 'c':
-        case 'C':
-            // Celsius to Fahrenheit
-            convertedTemp = (temperature * 9.0 / 5.0) + 32;
-            cout << "Fahrenheit: " << convertedTemp << endl;
+def kelvin_to_fahrenheit(kelvin):
+    return (kelvin - 273.15) * 9/5 + 32
 
-            // Celsius to Kelvin
-            convertedTemp = temperature + 273.15;
-            cout << "Kelvin: " << convertedTemp << endl;
-            break;
+def convert_temperature(value, unit):
+    if unit.lower() == 'c':
+        celsius = value
+        fahrenheit = celsius_to_fahrenheit(celsius)
+        kelvin = celsius_to_kelvin(celsius)
+    elif unit.lower() == 'f':
+        fahrenheit = value
+        celsius = fahrenheit_to_celsius(fahrenheit)
+        kelvin = fahrenheit_to_kelvin(fahrenheit)
+    elif unit.lower() == 'k':
+        kelvin = value
+        celsius = kelvin_to_celsius(kelvin)
+        fahrenheit = kelvin_to_fahrenheit(kelvin)
+    else:
+        return None
 
-        case 'f':
-        case 'F':
-            // Fahrenheit to Celsius
-            convertedTemp = (temperature - 32) * 5.0 / 9.0;
-            cout << "Celsius: " << convertedTemp << endl;
+    return celsius, fahrenheit, kelvin
 
-            // Fahrenheit to Kelvin
-            convertedTemp = ((temperature - 32) * 5.0 / 9.0) + 273.15;
-            cout << "Kelvin: " << convertedTemp << endl;
-            break;
+def main():
+    value = float(input("Enter the temperature value: "))
+    unit = input("Enter the unit of measurement (C for Celsius, F for Fahrenheit, K for Kelvin): ")
 
-        case 'k':
-        case 'K':
-            // Kelvin to Celsius
-            convertedTemp = temperature - 273.15;
-            cout << "Celsius: " << convertedTemp << endl;
+    result = convert_temperature(value, unit)
+    if result:
+        celsius, fahrenheit, kelvin = result
+        print(f"{value} degrees {unit.upper()} is equivalent to:")
+        print(f"{celsius:.2f} degrees Celsius")
+        print(f"{fahrenheit:.2f} degrees Fahrenheit")
+        print(f"{kelvin:.2f} Kelvin")
+    else:
+        print("Invalid unit of measurement.")
 
-            // Kelvin to Fahrenheit
-            convertedTemp = ((temperature - 273.15) * 9.0 / 5.0) + 32;
-            cout << "Fahrenheit: " << convertedTemp << endl;
-            break;
-
-        default:
-            cout << "Invalid choice. Please enter 'c', 'f', or 'k'.\n";
-    }
-
-    return 0;
-}
+if __name__ == "__main__":
+    main()
